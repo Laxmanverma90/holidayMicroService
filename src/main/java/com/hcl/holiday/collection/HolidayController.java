@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Laxman
- *
+ * @date 19 SEPT 2019
  */
 @Slf4j
 @RestController
@@ -29,6 +29,10 @@ public class HolidayController {
 	@Autowired
 	private HolidayService holidayService;
 	
+	/**
+	 * @param myDays
+	 * @return List<LocalDate>
+	 */
 	@GetMapping("/holidays")
 	public ResponseEntity<List<LocalDate>> holidays(@RequestParam List<String> myDays){
 		
