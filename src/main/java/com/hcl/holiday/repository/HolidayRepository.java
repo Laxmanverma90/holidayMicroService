@@ -18,6 +18,10 @@ import com.hcl.holiday.entity.Holiday;
 @Repository
 public interface HolidayRepository extends JpaRepository<Holiday, Integer> {
 
+	/**
+	 * @param myDays
+	 * @return
+	 */
 	@Query("SELECT holidayDate FROM Holiday WHERE holidayDate IN :myDays")
 	Optional<List<LocalDate>> findHolidayDateIn(List<LocalDate> myDays);
 }

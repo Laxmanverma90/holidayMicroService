@@ -22,28 +22,36 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class HolidayServiceImpl implements HolidayService {
 
+	private static final String DATE_FORMATE = "yyyy-MM-dd";
+
 	@Autowired
 	private HolidayRepository holidayRepository;
 
+	/**
+	 * @author Laxman
+	 * @date 19 SEPT 2019
+	 * 
+	 *       This method is using for getting Holiday list if any exist between
+	 *       them.
+	 */
 	@Override
 	public List<LocalDate> holidays(List<String> myDays) {
 
-		log.info("HolidayServiceImpl :: holidays --- ");
+		log.info(" :: holidays --- START ----");
 
+		List<LocalDate> holidayDates = new ArrayList<>();
 		List<LocalDate> localDates = new ArrayList<>();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATE);
+
 		myDays.stream().forEach(myDate -> localDates.add(LocalDate.parse(myDate, formatter)));
-		
-//		List<HolidayDto> holidayDtos = new ArrayList<>();
 		Optional<List<LocalDate>> holidays = holidayRepository.findHolidayDateIn(localDates);
-	/*	if (holidays.isPresent()) {
-			holidays.get().stream()
-					.forEach(holiday -> holidayDtos.add(HolidayDto.builder().holidaysId(holiday.getHolidaysId())
-							.holidayDate(holiday.getHolidayDate()).remarks(holiday.getRemarks()).build()));
-		}*/
-		
-		return holidays.get();
+
+		if (holidays.isPresent()) {
+			holidayDates = holidays.get();
+		}
+
+		log.info(" :: holidays --- END ----");
+		return holidayDates;
 	}
 
 }

@@ -9,7 +9,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 /**
  * @author Laxman
- *
+ * @date 19 SEPT 2019
  */
 @ControllerAdvice
 @RestController
@@ -21,9 +21,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	 * @return
 	 */
 	@ExceptionHandler(RecordNotFoundException.class)
-	public ResponseEntity<ErrorResponse> recordNotFoundException(RecordNotFoundException ex){
+	public ResponseEntity<ErrorResponse> recordNotFoundException(RecordNotFoundException ex) {
 		ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), "Failed");
-		
+
 		return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
 	}
 }
